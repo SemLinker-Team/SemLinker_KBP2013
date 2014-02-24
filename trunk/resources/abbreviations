@@ -1,0 +1,587 @@
+## USA States
+Alabama	US-AL
+Alabama	AL
+Alabama	Ala.
+Alabama	Ala
+Alaska	US-AK
+Alaska	AK
+Alaska	Alas.
+Alaska	Alas
+Arizona	US-AZ
+Arizona	AZ
+Arizona	Ariz.
+Arizona	Ariz
+Arizona	Az.
+Arizona	Az
+Arkansas	US-AR
+Arkansas	AR
+Arkansas	Ark.
+Arkansas	Ark
+California	US-CA
+California	CA
+California	CF
+California	Calif.
+California	Calif
+California	Ca.
+California	Ca
+California	Cal.
+California	Cal
+California	Cali.
+California	Cali
+Colorado	US-CO
+Colorado	CO
+Colorado	CL
+Colorado	Colo.
+Colorado	Colo
+Colorado	Col.
+Colorado	Col
+Connecticut	US-CT
+Connecticut	CT
+Connecticut	Conn.
+Connecticut	Conn
+Connecticut	Ct.
+Connecticut	Ct
+Delaware	US-DE
+Delaware	DE
+Delaware	DL
+Delaware	Del.
+Delaware	Del
+Delaware	De.
+Delaware	De
+District of Columbia	US-DC
+District of Columbia	DC
+District of Columbia	D.C.
+District of Columbia	DC.
+District of Columbia	D.C
+District of Columbia	Wash. D.C.
+District of Columbia	Wash DC
+District of Columbia	Wash. DC
+District of Columbia	Wash D.C.
+District of Columbia	WashDC
+District of Columbia	Wash.D.C.
+District of Columbia	Wash.DC
+Florida	US-FL
+Florida	FL
+Florida	Fla.
+Florida	Fla
+Florida	Fl.
+Florida	Fl
+Florida	Flor.
+Florida	Flor
+Georgia	US-GA
+Georgia	GA
+Georgia	Ga.
+Georgia	Ga
+Hawaii	US-HI
+Hawaii	HI
+Hawaii	HA
+Hawaii	H.I.
+Hawaii	H.I
+Hawaii	HI.
+Idaho	US-ID
+Idaho	ID
+Idaho	Id.
+Idaho	Id
+Idaho	Ida.
+Idaho	Ida
+Illinois	US-IL
+Illinois	IL
+Illinois	Ill.
+Illinois	Ill
+Illinois	Il.
+Illinois	Il
+Illinois	Ills.
+Illinois	Ills
+Illinois	Ill's
+Indiana	US-IN
+Indiana	IN
+Indiana	Ind.
+Indiana	Ind
+Indiana	In.
+# Indiana	In #introduce too much noise#
+Iowa	US-IA
+Iowa	IA
+Iowa	Ia.
+Iowa	Ia
+Iowa	Ioa.
+Iowa	Ioa
+Kansas	US-KS
+Kansas	KS
+Kansas	KA
+Kansas	Kans.
+Kansas	Kans
+Kansas	Kan.
+Kansas	Kan
+Kansas	Ks.
+Kansas	Ks
+Kansas	Ka.
+Kansas	Ka
+Kentucky	US-KY
+Kentucky	KY
+Kentucky	Ky.
+Kentucky	Ky
+Kentucky	Ken.
+Kentucky	Ken
+Kentucky	Kent.
+Kentucky	Kent
+Louisiana	US-LA
+Louisiana	LA
+Louisiana	La.
+Louisiana	La
+Maine	US-ME
+Maine	ME
+Maine	Me.
+Maine	Me
+Maryland	US-MD
+Maryland	MD
+Maryland	Md.
+Maryland	Md
+Massachusetts	US-MA
+Massachusetts	MA
+# Massachusetts	MS
+Massachusetts	Mass.
+Massachusetts	Mass
+Michigan	US-MI
+Michigan	MI
+Michigan	MC
+Michigan	Mich.
+Michigan	Mich
+Minnesota	US-MN
+Minnesota	MN
+Minnesota	Minn.
+Minnesota	Minn
+Minnesota	Mn.
+Minnesota	Mn
+Mississippi	US-MS
+Mississippi	MS
+# Mississippi	MI
+Mississippi	Miss.
+Mississippi	Miss
+Missouri	US-MO
+Missouri	MO
+Missouri	Mo.
+Missouri	Mo
+Montana	US-MT
+Montana	MT
+Montana	Mont.
+Montana	Mont
+Nebraska	US-NE
+Nebraska	NE
+Nebraska	NB
+Nebraska	Nebr.
+Nebraska	Nebr
+Nebraska	Neb.
+Nebraska	Neb
+Nevada	US-NV
+Nevada	NV
+Nevada	Nev.
+Nevada	Nev
+Nevada	Nv.
+Nevada	Nv
+New Hampshire	US-NH
+New Hampshire	NH
+New Hampshire	N.H.
+New Hampshire	N.H
+New Hampshire	NH.
+New Jersey	US-NJ
+New Jersey	NJ
+New Jersey	N.J.
+New Jersey	N.J
+New Jersey	NJ.
+New Mexico	US-NM
+New Mexico	NM
+New Mexico	N. Mex.
+New Mexico	N Mex
+New Mexico	N. Mex
+New Mexico	N.Mex.
+New Mexico	NMex
+New Mexico	N.Mex
+New Mexico	N.M.
+New Mexico	N.M
+New Mexico	NM.
+New Mexico	New M.
+New Mexico	New M
+New Mexico	NewM.
+New Mexico	NewM
+New York	US-NY
+New York	NY
+New York	N.Y.
+New York	N.Y
+New York	NY.
+New York	N. York
+New York	N York
+New York	N.York
+New York	NYork
+North Carolina	US-NC
+North Carolina	NC
+North Carolina	N.C.
+North Carolina	N.C
+North Carolina	NC.
+North Carolina	N. Car.
+North Carolina	N Car.
+North Carolina	N. Car
+North Carolina	N Car
+North Carolina	N.Car.
+North Carolina	NCar.
+North Carolina	N.Car
+North Carolina	NCar
+North Dakota	US-ND
+North Dakota	ND
+North Dakota	N. Dak.
+North Dakota	N Dak.
+North Dakota	N. Dak
+North Dakota	N Dak
+North Dakota	N.D.
+North Dakota	N.D
+North Dakota	ND.
+North Dakota	NoDak
+Ohio	US-OH
+Ohio	OH
+Ohio	O.
+Ohio	O
+Ohio	Oh.
+Ohio	Oh
+Oklahoma	US-OK
+Oklahoma	OK
+Oklahoma	Okla.
+Oklahoma	Okla
+Oklahoma	Ok.
+Oklahoma	Ok
+Oregon	US-OR
+Oregon	OR
+Oregon	Oreg.
+Oregon	Oreg
+Oregon	Ore.
+Oregon	Ore
+Oregon	Or.
+Oregon	Or
+Pennsylvania	US-PA
+Pennsylvania	PA
+Pennsylvania	Pa.
+Pennsylvania	Pa
+Pennsylvania	Penn.
+Pennsylvania	Penn
+Pennsylvania	Penna.
+Pennsylvania	Penna
+Rhode Island	US-RI
+Rhode Island	RI
+Rhode Island	R.I.
+Rhode Island	R.I
+Rhode Island	RI.
+Rhode Island	R.I. & P.P.
+Rhode Island	RI & PP
+Rhode Island	R.I.&P.P.
+Rhode Island	RI&PP
+Rhode Island	R. Isl.
+Rhode Island	R Isl.
+Rhode Island	R. Isl
+Rhode Island	R Isl
+Rhode Island	R.Isl.
+Rhode Island	RIsl.
+Rhode Island	R.Isl
+Rhode Island	RIsl
+South Carolina	US-SC
+South Carolina	SC
+South Carolina	S.C.
+South Carolina	SC.
+South Carolina	S.C
+South Carolina	S. Car.
+South Carolina	S.Car.
+South Carolina	S Car.
+South Carolina	S. Car
+South Carolina	S Car
+South Carolina	S.Car
+South Carolina	SCar.
+South Carolina	SCar
+South Dakota	US-SD
+South Dakota	SD
+South Dakota	S. Dak.
+South Dakota	S Dak
+South Dakota	S. Dak
+South Dakota	S Dak.
+South Dakota	S.Dak.
+South Dakota	SDak.
+South Dakota	S.Dak
+South Dakota	SDak
+South Dakota	S.D.
+South Dakota	SD.
+South Dakota	S.D
+South Dakota	SoDak
+Tennessee	US-TN
+Tennessee	TN
+Tennessee	Tenn.
+Tennessee	Tenn
+Tennessee	Tn.
+Tennessee	Tn
+Texas	US-TX
+Texas	TX
+Texas	Tex.
+Texas	Tex
+Texas	Tx.
+Texas	Tx
+Utah	US-UT
+Utah	UT
+Utah	Ut.
+Utah	Ut
+Vermont	US-VT
+Vermont	VT
+Vermont	Vt.
+Vermont	Vt
+Virginia	US-VA
+Virginia	VA
+Virginia	Va.
+Virginia	Va
+Virginia	Virg.
+Virginia	Virg
+Washington	US-WA
+Washington	WA
+Washington	WN
+Washington	Wash.
+Washington	Wash
+Washington	Wa.
+Washington	Wa
+Washington	Wn.
+Washington	Wn
+West Virginia	US-WV
+West Virginia	WV
+West Virginia	W. Va.
+West Virginia	W.Va.
+West Virginia	W Va.
+West Virginia	WVa.
+West Virginia	W. Va
+West Virginia	W.Va
+West Virginia	W Va
+West Virginia	WVa
+West Virginia	W.V.
+West Virginia	W.V
+West Virginia	WV.
+West Virginia	W. Virg.
+West Virginia	W.Virg.
+West Virginia	W Virg.
+West Virginia	WVirg.
+West Virginia	W. Virg
+West Virginia	W.Virg
+West Virginia	W Virg
+West Virginia	WVirg
+Wisconsin	US-WI
+Wisconsin	WI
+Wisconsin	WS
+Wisconsin	Wis.
+Wisconsin	Wis
+Wisconsin	Wi.
+Wisconsin	Wi
+Wisconsin	Wisc.
+Wisconsin	Wisc
+Wyoming	US-WY
+Wyoming	WY
+Wyoming	Wyo.
+Wyoming	Wyo
+Wyoming	Wy.
+Wyoming	Wy
+## English counties http://en.wikipedia.org/wiki/Postal_counties_of_the_United_Kingdom
+Bedfordshire	Beds 
+Berkshire	Berks 
+Buckinghamshire	Bucks 
+Cambridgeshire	Cambs 
+County Durham	Co Durham 
+East Sussex	E Sussex 
+Gloucestershire	Glos 
+Hampshire	Hants 
+Hertfordshire	Herts 
+Lancashire	Lancs 
+Leicestershire	Leics 
+Lincolnshire	Lincs 
+Middlesex	Middx 
+North Humberside	N Humbs
+North Yorkshire	N Yorks 
+Northamptonshire	Northants 
+Northumberland	Northd 
+Nottinghamshire	Notts 
+Oxfordshire	Oxon 
+Shropshire	Salop 
+South Humberside	S Humbs
+South Yorkshire	S Yorks 
+Staffordshire	Staffs 
+Tyne and Wear	Tyne & Wear 
+Warwickshire	Warks 
+West Midlands	W Mids 
+West Sussex	W Sussex 
+West Yorkshire	W Yorks 
+Wiltshire	Wilts 
+Worcestershire	Worcs
+Mid Glamorgan	M Glam
+South Glamorgan	S Glam
+West Glamorgan	W Glam
+County Antrim	Co Antrim 
+County Armagh	Co Armagh 
+County Down 	Co Down 
+County Fermanagh	Co Fermanagh 
+County Londonderry	Co Londonderry 
+County Tyrone	Co Tyrone
+## http://en.wikipedia.org/wiki/Chapman_code
+Channel Islands	CHI
+England	ENG
+Isle of Man	IOM
+Ireland	IRL
+Northern Ireland	NIR
+Scotland	SCT
+Wales	WLS
+Alderney	ALD
+Guernsey	GSY
+Jersey	JSY
+Sark	SRK
+Bedfordshire	BDF
+Berkshire	BRK
+Buckinghamshire	BKM
+Cambridgeshire	CAM
+Cheshire	CHS
+Cornwall	CON
+Cumberland	CUL
+Derbyshire	DBY
+Devonshire	DEV
+Dorset	DOR
+Durham	DUR
+Essex	ESS
+Gloucestershire	GLS
+Hampshire	HAM
+Herefordshire	HEF
+Hertfordshire	HRT
+Huntingdonshire	HUN
+Isle of Wight	IOW
+Kent	KEN
+Lancashire	LAN
+Leicestershire	LEI
+Lincolnshire	LIN
+London	LND
+Middlesex	MDX
+Norfolk	NFK
+Northamptonshire	NTH
+Northumberland	NBL
+Nottinghamshire	NTT
+Oxfordshire	OXF
+Rutland	RUT
+Shropshire	SAL
+Somerset	SOM
+Staffordshire	STS
+Suffolk	SFK
+Surrey	SRY
+Sussex	SSX
+Warwickshire	WAR
+Westmorland	WES
+Wiltshire	WIL
+Worcestershire	WOR
+Yorkshire	YKS
+Yorkshire East Riding	ERY
+Yorkshire North Riding	NRY
+Yorkshire West Riding	WRY
+Aberdeenshire	ABD
+Angus	ANS
+Argyll	ARL
+Ayrshire	AYR
+Banffshire	BAN
+Berwickshire	BEW
+Bute (Buteshire)	BUT
+Caithness	CAI
+Clackmannanshire	CLK
+Dumfriesshire	DFS 
+Dunbartonshire	DNB
+East Lothian	ELN
+Fife	FIF
+Inverness-shire	INV
+Kincardineshire	KCD
+Kinross-shire	KRS
+Kirkcudbrightshire	KKD
+Lanarkshire	LKS
+Midlothian	MLN
+Moray	MOR 
+Nairnshire	NAI
+Orkney	OKI
+Peeblesshire	PEE
+Perthshire	PER
+Renfrewshire	RFW
+Ross and Cromarty	ROC
+Roxburghshire	ROX
+Selkirkshire	SEL
+Shetland	SHI
+Stirlingshire	STI
+Sutherland	SUT
+West Lothian	WLN
+Wigtownshire	WIG
+Borders	BOR
+Central	CEN
+Dumfries and Galloway	DGY
+Grampian	GMP
+Highland	HLD
+Anglesey	AGY
+Brecknockshire	BRE
+Caernarfonshire	CAE
+Cardiganshire	CGN
+Carmarthenshire	CMN
+Denbighshire	DEN
+Flintshire	FLN
+Glamorgan	GLA
+Merionethshire	MER
+Monmouthshire	MON
+Montgomeryshire	MGY
+Pembrokeshire	PEM
+Radnorshire	RAD
+Clwyd	CWD
+Dyfed	DFD
+Gwent	GNT
+Gwynedd	GWN
+Mid Glamorgan	MGM
+Powys	POW
+South Glamorgan	SGM
+West Glamorgan	WGM
+Antrim	ANT
+Armagh	ARM
+Carlow	CAR
+Cavan	CAV
+Clare	CLA
+Cork	COR
+Donegal	DON
+Down	DOW
+Dublin	DUB
+Fermanagh	FER
+Galway	GAL
+Kerry	KER
+Kildare	KID
+Kilkenny	KIK
+Leitrim	LET
+Leix	LEX
+Limerick	LIM
+Londonderry	LDY
+Longford	LOG
+Louth	LOU
+Mayo	MAY
+Meath	MEA
+Monaghan	MOG
+Offaly	OFF
+Roscommon	ROS
+Sligo	SLI
+Tipperary	TIP
+Tyrone	TYR
+Waterford	WAT
+Westmeath	WEM
+Wexford	WEX
+Wicklow	WIC
+Lothian	LTN
+# Orkney Isles	OKI
+# Shetland Isles	SHI
+Strathclyde	STD
+Tayside	TAY
+Western Isles	WIS
+## http://en.wikipedia.org/wiki/Provinces_and_territories_of_Canada
+Ontario	ON
+Quebec	QC
+Nova Scotia	NS
+# New Brunswick	NB ## conflict with Nebraska, USA
+Manitoba	MB
+British Columbia	BC
+# Prince Edward Island	PE ## too small to be significant
+Saskatchewan	SK
+Alberta	AB
+# New Foundland and Labrador	NL ## conflict with The Netherlands + too small anyway
+# Northwest Territories	NT ## too small to be significant
+# Yukon	YT ## too small to be significant
+# Nunavut	NU ## too small to be significant
