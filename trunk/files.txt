@@ -1,0 +1,61 @@
+#
+#
+#  SemLinker v0.9
+#   
+#  Content of Folders
+#
+#
+
+./doc
+The user guide for the SemLinker application 
+
+./Javadoc
+The generated Javadoc for SemLinker (use your Javadoc Generator)
+
+./metadata
+The NLGbAse metadata (see readme.txt in folder for more information) 
+
+./jar
+All the libraries used by SemLinker. Please integrate them in the path of your IDE (Eclipse...)
+
+./jar/jbzip2-0.9.1.jar
+./jar/lucene-queries-4.4.0.jar
+./jar/lucene-queryparser-4.4.0.jar
+./jar/lucene-analyzers-common-4.4.0.jar
+./jar/opennlp-tools-1.5.2-incubating.jar
+./jar/json-org.jar
+./jar/commons-pool-1.6.jar
+./jar/jsoup-1.6.3.jar
+./jar/jedis-2.0.0.jar
+./jar/lucene-core-4.4.0.jar
+./jar/jbwf
+./jar/jbwf/lib
+
+./src
+The SemLinker source code.
+
+./resources
+./resources/fname_base.txt
+./resources/abbreviations
+./resources/stoplist_en.txt
+./resources/abvext
+./resources/utf.en.antidico.txt
+./resources/kbp2013
+In this folder, there are the query files from KBP and the output result files. 
+
+./resources/kbp2013/entitylinkingeval
+Query files from the KBP eval :
+./resources/kbp2013/entitylinkingeval/tac_2012_kbp_english_evaluation_entity_linking_query_types.tab
+./resources/kbp2013/entitylinkingeval/tac_2012_kbp_english_evaluation_entity_linking_queries.xml
+
+./resources/kbp2013/entitylinkingeval/archives
+Archives of the tests
+
+./resources/kbp2013/Lexicons
+Lexical resources and gazetteers (first name base, country lists...)
+
+./resources/kbp2013/scripts
+Evaluation scripts (scorers)  from NIST KBP 
+
+./resources/kbp2013/wikimeta_table
+Correspondance table between KBP nodes and Wikimeta Semantic annotations. 
