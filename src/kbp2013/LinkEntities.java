@@ -1,0 +1,448 @@
+/*
+ * 
+ * KBP2013 Package is a set of classes utilized to deploy
+ * a system on NIST KBP 2012 and 2013 evaluation campaigns.  
+ * 
+ */
+
+package kbp2013;
+
+/*
+
+SemLinker V 0.9
+Copyright (C) 2013  Eric Charton & Marie-Jean Meurs &
+                    Ludovic Jean-Louis & Michel Gagnon
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, 
+Boston, MA  02110-1301, USA.
+
+Contacts :
+
+This software is maintained and released at:
+
+https://code.google.com/p/semlinker/
+
+Please contact respective authors from this page for support
+or any inquiries. 
+
+*/
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import nlp.upperlevel.MutualDisambiguation;
+import nlp.upperlevel.NormalizeNE;
+import nlp.upperlevel.SimpleCoreferenceDetector;
+
+import kbp2013.defineLink.AnnotationExtractor;
+import kbp2013.defineLink.Link;
+import kbp2013.defineLink.RetrieveExactMentionAnnotation;
+import kbp2013.managedocuments.ExpandAbbreviation;
+import kbp2013.managedocuments.DocumentNormalizer;
+import kbp2013.managedocuments.NormalizedWebDoc;
+import kbp2013.managedocuments.IndexedDocumentCollection;
+import kbp2013.managedocuments.QueryProcessing;
+import kbp2013.managelinkoutput.BuildNILClusters;
+import kbp2013.managelinkoutput.CorrespondanceTableKBPWikimeta;
+import kbp2013.tools.LoadTestRef;
+import kbp2013.tools.Logging;
+import kbp2013.wikipedia.AnnotateWithKB;
+import kbp2013.tools.ManageQueries;
+import kbp2013.tools.ManageQueries.Query;
+
+import configure.NistKBPConfiguration;
+import configure.SemkitConfiguration;
+
+import semkit.extractor.WikiMetaXMLDecoder;
+
+
+/**
+ *
+ * Complete method to annotate KBP according to a query file.<br>
+ * To use this application you need some additional components :<br>
+ * <br>
+ * - Lucene Index of KBP Corpus<br>
+ *      (only available trough LDC)<br>
+ * - Lucene Index of Wikipedia XML Dump [Optional but 10 time faster]<br>
+ *      (we provide one for downloading)<br>
+ * - Local implementation of Lucene-Search for Wiki [Optional]<br>
+ * - A generated correspondence table for KB and Wikimeta [present in this package]<br>
+ * - An API Key to Wikimeta engine [Optional if you keep the config unmodified]<br>
+ * 
+ * @version 0.1
+ *
+ * @author ericcharton, mariejeanmeurs, ludovicjeanlouis, michelgagnon
+ *
+ */
+public class LinkEntities {
+	
+	
+	private static String configfile =  null; // full config file path / when null, use default from configuration class
+	
+    /**
+     * This is the main method that runs a complete annotation process on a NIST KBP evaluation set. <br>
+     * <br>
+	 * Command line:<br>
+	 * java -cp semlinker.jar kbp2013.LinkEntities -config config.cfg<br>
+	 * <br>
+	 * -config filename
+	 * 
+	 * 
+     * @param args
+     */
+     public static void main(String[] args) {
+
+       
+    	boolean testmode = false;
+    	 
+        //-----------------------------------
+        // get options of command lines
+        // override constants and variables if needed
+        //-----------------------------------
+		for (int x=0; x < args.length; x++){
+			
+					try{
+							// help
+							if ( args[x].matches("-h")){
+								System.out.println("-Help:");
+								System.exit(0); // help always overrides others
+							}
+							
+							// eval mode
+							if ( args[x].matches("-mode") && args[x+1].matches("true")){
+								testmode =  true;
+							}
+							
+							// config file
+							if ( args[x].matches("-config") ){
+								configfile =  args[x + 1];
+							}
+							
+					} catch(Exception e){
+						// Error
+						System.out.println("An error occured, please check your command line instruction");
+						System.exit(0); 
+					}
+							
+		}
+		
+		//-----------------------------------
+		// instantiate classes of constants
+		// and config.
+		//-----------------------------------
+		
+        NistKBPConfiguration KBvars ;
+        SemkitConfiguration WKMvars;
+   
+        if (configfile == null){
+        	KBvars = new NistKBPConfiguration();
+        	WKMvars = new SemkitConfiguration();
+        }else{
+        	KBvars = new NistKBPConfiguration(configfile);
+        	WKMvars = new SemkitConfiguration(configfile);
+        }
+     
+		
+        // some informations displayed about configuration
+        System.out.println("[LinkEntities]Spelling checker is " + KBvars.USE_WIKI_SPELLCHECKER );
+        System.out.println("[LinkEntities]LuceneWikiSpellCheck is " + KBvars.USE_LUCENE_WIKI_SPELLCHECKER);
+        
+        // define the maximum number of annotations used in various tasks
+        int maxnumberofannotations = KBvars.MAX_ANNOTATIONS;
+        System.out.println("[LinkEntities]MaxNbOfAnnotations is " + KBvars.MAX_ANNOTATIONS);
+        
+        testmode = KBvars.TEST_MODE; // position on true to use the 2013 KBP test corpus / false for 2012 dev corpus
+        System.out.println("[LinkEntities]Testmode is " + KBvars.TEST_MODE);
+    	
+        
+        //-----------------------------------
+        // instantiate other needed classes
+        //----------------------------------
+        CorrespondanceTableKBPWikimeta KBCorrespondanceTable = new CorrespondanceTableKBPWikimeta();
+        
+     
+        // Class to retrieve Lucene indexed document 
+        IndexedDocumentCollection docCollection = new IndexedDocumentCollection(); // this is to get the doc related to query with Lucene
+		// annotateDoc extractor = new annotateDoc("http://www.wikimeta.com/wapi/semtag.pl"); // this is to annotate
+        AnnotationExtractor extractor = new AnnotationExtractor(KBvars.API_URI); // this is to annotate		
+        // load reference (if exists) - not in eval mode
+        LoadTestRef testreference = new LoadTestRef(KBvars.PATH_TO_TRAIN_REF);
+        // instantiate abbreviation expander
+        ExpandAbbreviation expandabbrv = new ExpandAbbreviation();
+        // instantiate mutual disambiguation 
+        // !!! do not change to static -> problems for opening files with Lucene
+        MutualDisambiguation mdiz = new MutualDisambiguation(KBvars.INDEX_WIKIPEDIA, maxnumberofannotations);
+        // instantiate NE normalizer
+        NormalizeNE NEnorm = new NormalizeNE();
+        // instantiate a KB annotator
+        AnnotateWithKB kbannotator = new AnnotateWithKB();
+
+        //--------------------------------------
+        //
+        // open and manage the experiment file
+        //
+        //--------------------------------------		
+        // vars
+        int docNotFound = 0;
+        int nbQueries = 0;
+
+        try {
+        	
+        	
+        	//--------------------
+        	// open experience files
+        	//--------------------
+        	// query file readers
+        	BufferedReader reader = null; 
+        	if (testmode){
+        		reader = new BufferedReader(new FileReader(KBvars.PATH_TO_TEST));
+        	}else{
+        		reader = new BufferedReader(new FileReader(KBvars.PATH_TO_TRAIN));
+        	}
+        	// output writers
+        	BufferedWriter writer = null;
+        	BufferedWriter multioutputwriter = null; 
+        	// if flag test mode on true, use the current TEST corpus / else use the DEV with extra informations.
+        	if (testmode){
+        		writer = new BufferedWriter(new FileWriter(KBvars.PATH_TO_TEST_OUTPUT));
+        		multioutputwriter  = new BufferedWriter(new FileWriter(KBvars.PATH_TO_TEST_MULTIPLE_OUTPUT));
+        	}else{
+        		writer = new BufferedWriter(new FileWriter(KBvars.PATH_TO_TRAIN_OUTPUT));
+        		multioutputwriter  = new BufferedWriter(new FileWriter(KBvars.PATH_TO_TRAIN_MULTIPLE_OUTPUT));
+        	}
+        	
+        	
+        	//--------------------
+        	// open log files
+        	//--------------------
+            DocumentNormalizer documentNormalizer = new DocumentNormalizer();
+
+            Logging logging = new Logging(KBvars.PATH_TO_LOGS + "LinkedEntities.log");
+            Logging logHeadlines = new Logging(KBvars.PATH_TO_LOGS + "Headlines.log");
+            
+            
+        	//--------------------
+        	// begin experience
+        	//--------------------
+            ManageQueries querymanager = new ManageQueries(); // instantiate a query manager to load the queries
+            String text = null;
+            Query query;
+
+            while ((text = reader.readLine()) != null) {
+
+                // get query beginning
+                if (text.contains("<query")) {
+
+                    nbQueries++;
+                    // retrieve query
+                    query = querymanager.extractQueryData(reader, querymanager.extractQueryId(text), nbQueries);
+
+                    //------------------------------
+                    // Retrieve the document
+                    //------------------------------
+                    // get doc string
+                    String content = docCollection.getDocFromIR(query.docid);
+                    
+                    
+                    // Verbose information about this query
+            		logging.writeLog(querymanager.createQueryInfo(query));
+                    
+                    //---------------------------------
+            		// Normalize query
+            		// correct mention if needed
+            		//---------------------------------
+            		query.name = QueryProcessing.correctQuery(query.name, KBvars.USE_WIKI_SPELLCHECKER, KBvars.USE_LUCENE_WIKI_SPELLCHECKER); // this will be the new query with misspelling corrected and wrong chars removed
+            		
+            		// update normalized version
+            		query.normalizedName = QueryProcessing.normalize(query.name);
+            		
+                    //-------------------------------------------------
+            		// Synchronize content according to mention
+                    //    Athens now in query / athens in doc
+                    //    Collin Farell in query / Colin **** Farell in doc// 
+            		//-------------------------------------------------
+            		// save the content for future mention localization
+                    String originalContent = content;
+            		// synchronize document with mention for the mention sequence
+            		content  = content.replace(query.originalQuery , query.name);
+
+            		// Check if the doc is correctly retrieved, if not, NIL by default, please correct the index
+                    if (content == null || content.length() == 0) {
+                        // no doc found, managing error
+                        // log the information but output a nil
+                        logging.writeLog("Error: no doc, please correct the index");
+                        // output a default NIL descriptor
+                        writer.append(query.id + "\t" + "NIL" + "\t" + query.name + "\t" + query.normalizedName + "\tNORDF\tUNK\n");
+                        docNotFound++;
+
+                    } else {
+                    	
+                    	//-------------------------------------------------
+                        // Content length management
+                        //-------------------------------------------------
+                        String avert = "";
+                        if (content.length() > 60000) { avert = " [Content Lenght Oversize API. Splitting]";}
+                        logging.writeLog("Content:" + content.length() + avert);
+                        
+                        // control the length if possible
+                        if ( content.length() > 60000){
+                    		int lenghtofdocresized = query.beg + 5000;
+                    		if (lenghtofdocresized > content.length() ) lenghtofdocresized = content.length();
+                    		content = content.substring(0, lenghtofdocresized );
+                        }
+
+                        //-------------------------------------------------
+                        // Normalizations
+                        //-------------------------------------------------
+              
+                        // [mj] clean the 2 following lines
+						// Normalize the Query for special chars
+                        // query.name = documentNormalizer.ApplyNorm(query.name);
+                 
+                        // Normalize for web 
+                        content = NormalizedWebDoc.ReplaceHtmlSmileyChars(content); // web doc cleaning
+                        content = NormalizedWebDoc.ReplaceHtmlReservedChars(content); // web doc cleaning
+                        content = NormalizedWebDoc.ReplaceISO_8859_1Characters(content); // web doc cleaning
+                        content = NormalizedWebDoc.ReplaceISO_8859_1Symbols(content); // web doc cleaning
+                        content = NormalizedWebDoc.ReplaceHtmlGreekLetter(content); // web doc cleaning// 
+                        content = NormalizedWebDoc.ReplaceHtmlMathSymbol(content); // web doc cleaning
+                        content = NormalizedWebDoc.replaceSpecialCharacters(content); // web doc cleaning, special chars
+                        //content = NormalizedWebDoc.forumnormalizer(content); // forums doc cleaning
+
+                        // normalize all
+                        content = expandabbrv.ReplaceAbbreviation(content); //expand state name abbreviation
+                        content = documentNormalizer.normalizePunctuation(content);
+                        content = documentNormalizer.ApplyNorm(content); // normalize doc for special characters
+                        content = documentNormalizer.NormalizeCapSequences(content, query.name, logHeadlines); // (try to) remove caps in sentences
+                        content = documentNormalizer.RemoveTags(content); // remove SGML tags
+                        
+
+                        // normalize doc string for lower case in the mention to detect
+                        if (query.name.matches("^[a-z]+")) {
+                            content = DocumentNormalizer.IntroduceCap(content, query.name); // example detect Maria Cross for mention cross
+                        }
+   
+                        //-------------------------------------------------
+                        // Process annotations
+                        //-------------------------------------------------
+     
+                        // annotate
+                        String XMLreturned = extractor.getWikimetaAnnotations(content);
+
+                        // get original content 
+                        WikiMetaXMLDecoder annotations = extractor.getAnnotations(XMLreturned, maxnumberofannotations);
+    
+                        //-------------------------------------------------
+                        // Process treatments
+                        //-------------------------------------------------
+                        
+                        // apply co-reference corrections
+                        annotations = SimpleCoreferenceDetector.applyCoreferenceCorrection(annotations);
+
+                        // Disambiguate using document mutual 
+                        annotations = mdiz.disambig(annotations, content);
+                        
+                        // re-apply co-reference corrections after mutual disambiguation
+                        annotations = SimpleCoreferenceDetector.applyCoreferenceCorrection(annotations);
+
+                        // apply NE normalizer
+                        annotations = NEnorm.rerankNE(annotations);
+
+                        // re-apply co-reference corrections after NE Normalizer
+                        annotations = SimpleCoreferenceDetector.applyCoreferenceCorrection(annotations);
+
+                        // get the reference of the pointed mention
+                        int linkAtPos = RetrieveExactMentionAnnotation.getAnnotationAtPosition(annotations, query.name, query.beg, query.end, originalContent, logging);
+
+                        
+                        //--------------------------------
+                        // search match
+                        //--------------------------------
+                        Link link = new Link(annotations, query.normalizedName, query.name, linkAtPos, KBCorrespondanceTable, logging, maxnumberofannotations);
+                        String FinalKeyValue = link.kbKeyValue(); // final Key selected
+                        
+                        
+                        //----------------------------------------
+                        // Use KB on mention if there is no match
+                        //----------------------------------------
+                        
+                        if (link.heuristicUsed() == 1 ){
+                        	String directKeyCandidate = kbannotator.getKeyforAMention(query.normalizedName);
+                        	if (directKeyCandidate != null){
+                        		 FinalKeyValue = directKeyCandidate ;
+                        		 System.out.println("    [Result retrieved by direct key match with KB]");
+                        	}
+                        }
+                        
+                        
+                        //-------------------------------------
+                        // Display and save results
+                        //-------------------------------------
+                        
+                        // sort the value 
+                        writer.append(query.id + "\t" + FinalKeyValue  + "\t" + query.normalizedName + "\t" + link.bestSf() + "\t" + link.bestFinalMention() + "\t" + link.bestUri() + "\t" + link.bestEN() + "\n");
+                        writer.flush();
+                        // sort the ranked list from 2
+                        multioutputwriter.append(query.id + "\t" + link.listofKeysRanked() +"\n");
+
+                        // display reference KB Node against found KB Node
+                        if (testmode){
+                        	logging.writeLog("KB Node -> Test Mode / Returned Node ->" + FinalKeyValue );
+                            
+                        }else{
+                        	logging.writeLog("KB Node ->" + testreference.returnQueryKBRef(query.id) + " EN:" + testreference.returnQueryKBENLabelRef(query.id) + " Returned Node ->" + FinalKeyValue );
+                        }
+                        /**/
+                    }
+
+                }
+
+
+            }
+            multioutputwriter.close();
+            writer.close();
+            reader.close();
+            logging.writeLog("Queries:" + nbQueries + " Notfound:" + docNotFound);
+
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();    
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // end of process
+
+        // call buildNilClusters
+        // file in file out    
+        BuildNILClusters Kbuilder = null;
+    	if (testmode){
+    		Kbuilder = new BuildNILClusters( KBvars.PATH_TO_TEST_OUTPUT, KBvars.PATH_TO_TEST_CLUSTERED_OUTPUT);
+    		Kbuilder.makeClusters();
+    		
+    	}else{
+    		Kbuilder = new BuildNILClusters(KBvars.PATH_TO_TRAIN_OUTPUT, KBvars.PATH_TO_TRAIN_CLUSTERED_OUTPUT);
+    		Kbuilder.makeClusters();
+    	}
+    	
+    	// build an output with ranks
+        
+    }
+}
