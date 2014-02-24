@@ -1,0 +1,35 @@
+The following Jar packages are included in SemLinker with the appropriate version for convenience.
+
+Their respective licenses are:
+
+Jedis
+Address: http://code.google.com/p/jedis/
+License: https://www.apache.org/licenses/LICENSE-2.0
+
+Apache Commons
+Address: https://commons.apache.org/proper/commons-pool/
+License: https://www.apache.org/licenses/
+
+JbZip
+Address: http://code.google.com/p/jbzip2/
+License: MIT http://opensource.org/licenses/mit-license.php
+
+Json-org
+Address: http://www.json.org/java/index.html
+License: Freeware
+
+jsoup 
+Address: http://jsoup.org/
+License: MIT http://jsoup.org/license
+
+Lucene
+Address: https://lucene.apache.org/core/
+License: https://www.apache.org/licenses/LICENSE-2.0
+
+OpenNlp
+Address: https://opennlp.apache.org/
+License: https://www.apache.org/licenses/
+
+jwbf
+Address: http://jwbf.sourceforge.net/
+License: https://www.apache.org/licenses/LICENSE-2.0
