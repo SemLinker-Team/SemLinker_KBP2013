@@ -1,0 +1,15 @@
+configure
+evaluation
+kbp2013
+kbp2013.defineLink
+kbp2013.externaltools
+kbp2013.index
+kbp2013.managedocuments
+kbp2013.managelinkoutput
+kbp2013.tools
+kbp2013.wikipedia
+nlp.decoders
+nlp.upperlevel
+semkit.demos
+semkit.extractor
+semkit.semanticresources
