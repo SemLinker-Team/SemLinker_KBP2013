@@ -1,0 +1,11 @@
+Welcome on SemLinker Wiki
+
+= Complementary files =
+
+For your convenience, we installed the following files for direct download: 
+
+* The NLGbAse metadata :
+http://www.wikimeta.com/semlinkerdata/EN.data.csv
+
+* The Lucene Indexed Wikipedia :
+http://www.wikimeta.com/semlinkerdata/indexwiki_2013.zip
