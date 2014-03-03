@@ -1,3 +1,4 @@
+#wiki
 Welcome on SemLinker Wiki
 
 = Complementary files =
