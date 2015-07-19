@@ -49,6 +49,10 @@ To use SemLinker, you need the following components :
 - You need a version of the NLGbAse metadata (one is in the folder metadata) : http://www.nlgbase.org
 - You need a semantic annotation API key (free) : http://wikimeta.org/product_api.html 
  
+ 
+
+++ The following section is now obsolete ++
+
 == About Wikimeta ==
 
 Wikimeta provides content analysis and meta-data annotation tools. 
